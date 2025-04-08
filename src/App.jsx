@@ -1,6 +1,4 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
+import React from 'react';
 import './App.css';
 
 function App() {
@@ -16,7 +14,18 @@ function App() {
     5. 변수값이나 함수를 출력할 때는 {}로 감싸면 됨.
   */
 
-  return <h1>hello react</h1>;
+  // const $h1 = React.createElement('h1', null, '안녕 리액트');
+
+  const subject = 'Vanilla Javascript!!';
+
+  return (
+    <>
+      <h1 className='title'>hello react</h1>
+      <h2>React 학습 시작</h2>
+      <label htmlFor='username'>이름</label>
+      <input id='username' type='text' />
+    </>
+  );
 }
 
 export default App;
