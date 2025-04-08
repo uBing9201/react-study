@@ -1,6 +1,7 @@
 import './App.css';
 
 import ExpenseItem from './components/expenses/ExpenseItem';
+import NoName from './components/NoName';
 
 function App() {
   const expenses = [
@@ -12,14 +13,16 @@ function App() {
 
   return (
     <>
-      {expenses.map((item) => (
-        <ExpenseItem
-          key={item.id} // 반복문을 통해 같은 컴포넌트를 표현 할 때,
-          title={item.title}
-          price={item.price}
-          date={item.date}
-        />
-      ))}
+      <div className='expenses'>
+        {expenses.map((item) => (
+          <ExpenseItem
+            key={item.id} // 반복문을 통해 같은 컴포넌트를 표현 할 때,
+            title={item.title}
+            price={item.price}
+            date={item.date}
+          />
+        ))}
+      </div>
     </>
   );
 }
