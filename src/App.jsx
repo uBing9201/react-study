@@ -14,7 +14,7 @@ function App() {
     <>
       {expenses.map((item) => (
         <ExpenseItem
-          key={item.id} // 반복문을 통해 같은 컴포넌트를 표현 할 때, 각각을 구분할 수 있게 해주는 props
+          key={item.id} // 반복문을 통해 같은 컴포넌트를 표현 할 때,
           title={item.title}
           price={item.price}
           date={item.date}
