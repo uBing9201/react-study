@@ -4,7 +4,7 @@ import './App.css';
 import ExpenseItem from './components/expenses/ExpenseItem';
 import NewExpense from './components/newExpense/NewExpense';
 import ExpenseFilter from './components/expenses/ExpenseFilter';
-import Card from './components/Ul/Card';
+import Card from './UI/Card';
 
 function App() {
   const expenses = [
