@@ -5,8 +5,16 @@ import Button from '../../UI/Button';
 const CourseInput = ({ onAdd }) => {
   const [enteredText, setEnteredText] = useState('');
 
+  const [isValued, setIsValued] = useState(false);
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // submit 전에 최종 입력값 검증.
+    if (!enteredText.trim()) {
+      setIsValued(false);
+      return;
+    }
 
     onAdd({
       id: Math.random().toString(),
@@ -18,14 +26,31 @@ const CourseInput = ({ onAdd }) => {
   };
 
   const handleInput = (e) => {
+    const inputValue = e.target.value;
+
+    // 입력값 검증
+    if (inputValue.trim().length > 0) {
+      setIsValued(true); // 뭐라도 작성이 되어있다면 유효하다!
+    } else setIsValued(false);
+
     setEnteredText(e.target.value);
   };
+
+  console.log(`isValued: ${isValued}`);
 
   return (
     <form onSubmit={handleSubmit}>
       <div className='form-control'>
-        <label>나의 목표</label>
-        <input type='text' onChange={handleInput} value={enteredText} />
+        <label style={{ color: isValued ? 'black' : 'red' }}>나의 목표</label>
+        <input
+          type='text'
+          onChange={handleInput}
+          value={enteredText}
+          style={{
+            background: isValued ? 'transparent' : 'salmon',
+            borderColor: isValued ? 'black' : 'red',
+          }}
+        />
       </div>
       <Button type='submit'>목표 추가하기</Button>
     </form>
