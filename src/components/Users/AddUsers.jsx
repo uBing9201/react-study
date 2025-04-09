@@ -17,6 +17,12 @@ const AddUsers = ({ onAdd }) => {
   const userSubmitHandler = (e) => {
     e.preventDefault();
     if (!userValue.userName.trim() || userValue.age.trim() === '') {
+      alert('이름이나 나이가 비어있습니다');
+      return;
+    }
+
+    if (+userValue.age < 1) {
+      alert('1살 이상을 입력해주세요');
       return;
     }
 
