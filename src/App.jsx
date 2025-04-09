@@ -19,10 +19,12 @@ function App() {
 
   // 선택된 연도값 상태 관리 -> 연도가 바뀌면 렌더링 다시 하기위해
   const [filteredYear, setFilteredYear] = useState(
-    new Date().getFullYear().toString(),
+    new Date().getFullYear().toString(), // 기본값으로 현 날짜를 뽑아서 년도만 스트링으로 표시
   );
   // 자식 컴포넌트인 ExpenseFilter에게 내려줄 함수
-  const filterChangeHandler = (selectedYear) => {};
+  const filterChangeHandler = (selectedYear) => {
+    setFilteredYear(selectedYear); // 사용자가 선택한 연도로 상태로 변경
+  };
 
   // 자식 컴포넌트의 데이터를 부모 컴포넌트에서 받아내는 방법 (props drilling)
   const addExpenseHandler = (newEx) => {
@@ -38,14 +40,16 @@ function App() {
       <NewExpense onAddExpense={addExpenseHandler} />
       <Card className='expenses'>
         <ExpenseFilter onChangeFilter={filterChangeHandler} />
-        {expenseList.map((item) => (
-          <ExpenseItem
-            key={item.id} // 반복문을 통해 같은 컴포넌트를 표현 할 때,
-            title={item.title}
-            price={item.price}
-            date={item.date}
-          />
-        ))}
+        {expenseList
+          .filter((item) => item.date.getFullYear().toString() === filteredYear)
+          .map((item) => (
+            <ExpenseItem
+              key={item.id} // 반복문을 통해 같은 컴포넌트를 표현 할 때,
+              title={item.title}
+              price={item.price}
+              date={item.date}
+            />
+          ))}
       </Card>
     </>
   );
