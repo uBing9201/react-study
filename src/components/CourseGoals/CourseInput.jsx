@@ -36,21 +36,11 @@ const CourseInput = ({ onAdd }) => {
     setEnteredText(e.target.value);
   };
 
-  console.log(`isValued: ${isValued}`);
-
   return (
     <form onSubmit={handleSubmit}>
-      <div className='form-control'>
+      <div className={`form-control ${!isValued ? 'invalid' : ''}`}>
         <label style={{ color: isValued ? 'black' : 'red' }}>나의 목표</label>
-        <input
-          type='text'
-          onChange={handleInput}
-          value={enteredText}
-          style={{
-            background: isValued ? 'transparent' : 'salmon',
-            borderColor: isValued ? 'black' : 'red',
-          }}
-        />
+        <input type='text' onChange={handleInput} value={enteredText} />
       </div>
       <Button type='submit'>목표 추가하기</Button>
     </form>
