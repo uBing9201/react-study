@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Card from '../../UI/Card';
 import styles from './AddUsers.module.css';
 import Button from '../../UI/Button';
+import ErrorModal from '../Modal/ErrorModal';
 
 const AddUsers = ({ onAdd }) => {
   /*
@@ -14,15 +15,24 @@ const AddUsers = ({ onAdd }) => {
     age: '',
   });
 
+  // 에러 상태를 관리하는 변수
+  const [error, setError] = useState(null);
+
   const userSubmitHandler = (e) => {
     e.preventDefault();
     if (!userValue.userName.trim() || userValue.age.trim() === '') {
-      alert('이름이나 나이가 비어있습니다');
+      setError({
+        title: '유효하지 않은 입력 값',
+        message: '입력값은 공백으로 두면 안됩니다.',
+      });
       return;
     }
 
     if (+userValue.age < 1) {
-      alert('1살 이상을 입력해주세요');
+      setError({
+        title: '유효하지 않은 나이의 범위',
+        message: '나이는 1 이상의 숫자로 작성해주세요.',
+      });
       return;
     }
 
@@ -43,25 +53,41 @@ const AddUsers = ({ onAdd }) => {
   };
 
   return (
-    <Card className={styles.input}>
-      <form onSubmit={userSubmitHandler}>
-        <label htmlFor='username'>이름</label>
-        <input
-          id='username'
-          type='text'
-          onChange={userNameChangeHandler}
-          value={userValue.userName}
-        />
-        <label htmlFor='age'>나이</label>
-        <input
-          id='age'
-          type='number'
-          onChange={ageChangeHandler}
-          value={userValue.age}
-        />
-        <Button type='submit'>가입하기</Button>
-      </form>
-    </Card>
+    <>
+      {
+        /* 단축 평가 연산을 활용한 컴포넌트의 조건부 렌더링 
+          error 상태 변수가 truthy or falsy에 따라
+          우항에 있는 컴포넌트를 드러낼 것이냐 말 것이냐를 결정.*/
+        error && (
+          <ErrorModal
+            title={error.title}
+            message={error.message}
+            onConfirm={() => {
+              setError(null);
+            }}
+          />
+        )
+      }
+      <Card className={styles.input}>
+        <form onSubmit={userSubmitHandler}>
+          <label htmlFor='username'>이름</label>
+          <input
+            id='username'
+            type='text'
+            onChange={userNameChangeHandler}
+            value={userValue.userName}
+          />
+          <label htmlFor='age'>나이</label>
+          <input
+            id='age'
+            type='number'
+            onChange={ageChangeHandler}
+            value={userValue.age}
+          />
+          <Button type='submit'>가입하기</Button>
+        </form>
+      </Card>
+    </>
   );
 };
 
