@@ -27,6 +27,7 @@ const App = () => {
   // login-flag라는 데이터가 있다면 로그인 상태를 변경하자
   useEffect(() => {
     // 이 useEffect의 콜백은 최초 렌더링 시 딱 한번만 동작해도 되는 로직.
+    console.log('useEffect called in App.jsx!');
 
     // 화면이 렌더링 될 때 localStorage를 확인해서
     // login-flag라는 데이터 있다면 로그인 상태를 변경하자
